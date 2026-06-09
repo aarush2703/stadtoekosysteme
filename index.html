@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stadtökosystem – aktives Management durch den Menschen</title>
+  <meta name="description" content="Interaktive Schulwebsite zum Stadtökosystem mit Fokus auf aktives Management durch den Menschen, konkrete Tierbeispiele, Quiz sowie positive und negative Auswirkungen." />
+  <style>
+    :root{
+      --bg:#f4f8f5;
+      --surface:rgba(255,255,255,.88);
+      --surface-strong:#ffffff;
+      --surface-soft:#edf6ef;
+      --text:#18231b;
+      --muted:#5b6a60;
+      --green:#2f7a4f;
+      --green-2:#79ba88;
+      --red:#cb6666;
+      --amber:#d5a037;
+      --blue:#4f8ebd;
+      --border:#d7e5d8;
+      --shadow:0 16px 36px rgba(24,35,27,.08);
+      --radius:24px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Inter,Arial,sans-serif;background:
+      radial-gradient(circle at top left, rgba(121,186,136,.18), transparent 25%),
+      radial-gradient(circle at top right, rgba(79,142,189,.16), transparent 20%),
+      linear-gradient(180deg,#f9fbf8 0%,#eef5ef 100%);
+      color:var(--text);line-height:1.65}
+    h1,h2,h3{margin:0 0 .6rem;line-height:1.08}
+    h1,h2{font-family:Georgia,'Times New Roman',serif}
+    p{margin:.35rem 0 0}
+    a{text-decoration:none;color:inherit}
+    button,input{font:inherit}
+    .container{width:min(1120px,calc(100% - 2rem));margin:auto}
+    .card,.hero-box,.panel-box,.quiz-box{background:var(--surface);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
+    header{position:sticky;top:0;background:rgba(249,251,248,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:50}
+    .nav{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1rem 0}
+    .brand{font-weight:800;color:var(--green)}
+    .nav-links{display:flex;gap:1rem;flex-wrap:wrap;color:var(--muted);font-size:.95rem}
+    .motion-btn{border:1px solid var(--border);background:#fff;padding:.7rem 1rem;border-radius:999px;cursor:pointer;min-height:44px}
+    .hero{padding:4.5rem 0 2rem}
+    .hero-box{padding:1.5rem}
+    .eyebrow{display:inline-block;padding:.42rem .82rem;border-radius:999px;background:var(--surface-soft);color:var(--green);font-size:.82rem;font-weight:700;margin-bottom:1rem}
+    .lead{max-width:68ch;color:var(--muted);font-size:1.06rem}
+    .hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:1rem;margin-top:1.3rem}
+    .scene-wrap{padding:1rem}
+    .scene{position:relative;min-height:320px;border-radius:20px;background:linear-gradient(180deg,#d8efff 0%,#eef8ff 42%,#ddeed9 42%,#d7ead4 100%);overflow:hidden;border:1px solid var(--border)}
+    .sun{position:absolute;top:28px;right:36px;width:60px;height:60px;border-radius:50%;background:#ffd968;box-shadow:0 0 0 12px rgba(255,217,104,.18);animation:pulse 4s ease-in-out infinite}
+    .cloud{position:absolute;top:40px;width:90px;height:30px;background:rgba(255,255,255,.88);border-radius:999px;animation:drift 18s linear infinite}
+    .cloud:before,.cloud:after{content:'';position:absolute;border-radius:50%;background:rgba(255,255,255,.92)}
+    .cloud:before{width:36px;height:36px;left:12px;top:-14px}.cloud:after{width:30px;height:30px;left:46px;top:-9px}
+    .c1{left:-20px}.c2{left:180px;top:75px;animation-duration:22s}
+    .building{position:absolute;bottom:92px;width:82px;background:linear-gradient(180deg,#aab5bc,#95a1a9);border-radius:12px 12px 0 0}
+    .b1{left:26px;height:102px}.b2{left:96px;height:136px}.b3{left:172px;height:88px}.b4{left:246px;height:118px}
+    .window{position:absolute;width:12px;height:14px;border-radius:3px;background:#eef8fb}
+    .tree{position:absolute;bottom:90px;width:17px;height:42px;background:#6c4a2f;border-radius:8px}
+    .tree:before{content:'';position:absolute;left:-15px;top:-29px;width:48px;height:48px;border-radius:50%;background:linear-gradient(180deg,#58ad66,#459850);animation:sway 5s ease-in-out infinite}
+    .t1{left:380px}.t2{left:434px}.t3{left:490px}.t4{left:548px}
+    .road{position:absolute;left:0;right:0;bottom:42px;height:30px;background:#697074}
+    .lane{position:absolute;left:0;right:0;top:12px;height:4px;background:repeating-linear-gradient(90deg,#fff 0 20px,transparent 20px 40px)}
+    .car{position:absolute;left:-70px;bottom:48px;width:68px;height:22px;background:#d86d6d;border-radius:12px 12px 6px 6px;animation:drive 12s linear infinite}
+    .car:before,.car:after{content:'';position:absolute;bottom:-7px;width:12px;height:12px;border-radius:50%;background:#273036}.car:before{left:10px}.car:after{right:10px}
+    .pigeon,.bee,.hedgehog,.duck{position:absolute;font-size:26px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.08))}
+    .pigeon{left:124px;top:46px;animation:floaty 5s ease-in-out infinite}
+    .bee{left:436px;top:118px;animation:buzz 5s ease-in-out infinite}
+    .hedgehog{right:150px;bottom:82px;animation:hop 6s ease-in-out infinite}
+    .duck{right:54px;bottom:108px;animation:floaty 4.5s ease-in-out infinite}
+    .water{position:absolute;right:24px;bottom:88px;width:120px;height:44px;border-radius:999px;background:linear-gradient(180deg,#95d1ef,#77badd)}
+    .water:after{content:'';position:absolute;inset:8px;border-radius:999px;border:2px solid rgba(255,255,255,.24)}
+    .legend{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1rem}
+    .legend span{padding:.45rem .7rem;background:var(--surface-soft);border-radius:999px;color:var(--muted);font-size:.85rem}
+    .section{padding:1rem 0 2rem}
+    .section-head{display:grid;grid-template-columns:.92fr 1.08fr;gap:1rem;align-items:start;margin-bottom:1rem}
+    .section-head p{color:var(--muted)}
+    .grid-2,.grid-3,.grid-4{display:grid;gap:1rem}
+    .grid-2{grid-template-columns:repeat(2,1fr)} .grid-3{grid-template-columns:repeat(3,1fr)} .grid-4{grid-template-columns:repeat(4,1fr)}
+    .card{padding:1.2rem}
+    .tag{display:inline-block;padding:.3rem .65rem;border-radius:999px;background:var(--surface-soft);color:var(--green);font-size:.8rem;font-weight:700;margin-bottom:.75rem}
+    .pill-row{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1rem}
+    .pill{padding:.75rem 1rem;border-radius:999px;border:1px solid var(--border);background:#fff;cursor:pointer;min-height:44px;transition:.2s}
+    .pill.active{background:var(--green);color:#fff;border-color:var(--green)}
+    .panel-box{padding:1rem;border-left:5px solid var(--blue);min-height:240px}
+    .panel-box ul{margin:.7rem 0 0 1rem;padding:0}.panel-box li{margin:.35rem 0;color:var(--muted)}
+    .impact.negative{border-left:5px solid var(--red)} .impact.positive{border-left:5px solid var(--green)}
+    .compare-card{padding:1rem;border-radius:18px;background:#fff;border:1px solid var(--border)}
+    .quiz-box{padding:1.2rem}
+    .quiz-options{display:grid;gap:.7rem;margin-top:1rem}
+    .quiz-option{padding:.85rem 1rem;border-radius:16px;border:1px solid var(--border);background:#fff;cursor:pointer;text-align:left;transition:.2s}
+    .quiz-option:hover{transform:translateY(-1px)}
+    .quiz-option.correct{border-color:var(--green);background:#eef8f0}
+    .quiz-option.wrong{border-color:var(--red);background:#fff1f1}
+    .quiz-feedback{margin-top:1rem;padding:1rem;border-radius:16px;background:var(--surface-soft);display:none}
+    .score{margin-top:1rem;color:var(--muted);font-weight:700}
+    footer{padding:2rem 0 3rem;color:var(--muted)}
+    body.paused *{animation-play-state:paused!important}
+    @keyframes pulse{50%{transform:scale(1.06)}}
+    @keyframes drift{from{transform:translateX(0)}to{transform:translateX(820px)}}
+    @keyframes sway{50%{transform:translateX(3px) rotate(2deg)}}
+    @keyframes drive{0%{transform:translateX(0)}100%{transform:translateX(980px)}}
+    @keyframes buzz{0%,100%{transform:translate(0,0)}25%{transform:translate(14px,-8px)}50%{transform:translate(28px,4px)}75%{transform:translate(8px,8px)}}
+    @keyframes floaty{50%{transform:translateY(-6px)}}
+    @keyframes hop{40%{transform:translateY(-8px)}60%{transform:translateX(6px)}}
+    @media (max-width:920px){.hero-grid,.section-head,.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}.nav-links{display:none}}
+    @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">Stadtökosystem</div>
+      <nav class="nav-links">
+        <a href="#management">Management</a>
+        <a href="#wirkungen">Positiv & negativ</a>
+        <a href="#beispiele">Tierbeispiele</a>
+        <a href="#quiz">Quiz</a>
+      </nav>
+      <button class="motion-btn" id="motionToggle" aria-pressed="false">Animationen pausieren</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-box">
+        <span class="eyebrow">Interaktiv · klar · vorzeigefähig</span>
+        <h1>Wie der Mensch das Stadtökosystem aktiv managed</h1>
+        <p class="lead">Im Stadtökosystem greift der Mensch bewusst steuernd ein. Er reguliert Bestände, verbessert Lebensräume, schützt Tiere vor technischen Gefahren und stellt ökologische Prozesse wie Wasserrückhalt oder Ersatzlebensräume wieder her.</p>
+        <div class="hero-grid">
+          <div class="scene-wrap">
+            <div class="scene" aria-label="Animierte Szene mit Stadt, Verkehr, Grünflächen und Stadttieren">
+              <div class="sun"></div>
+              <div class="cloud c1"></div><div class="cloud c2"></div>
+              <div class="building b1"></div><div class="building b2"></div><div class="building b3"></div><div class="building b4"></div>
+              <span class="window" style="left:48px;bottom:174px"></span><span class="window" style="left:76px;bottom:174px"></span>
+              <span class="window" style="left:118px;bottom:204px"></span><span class="window" style="left:146px;bottom:204px"></span><span class="window" style="left:118px;bottom:176px"></span><span class="window" style="left:146px;bottom:176px"></span>
+              <span class="window" style="left:194px;bottom:162px"></span><span class="window" style="left:222px;bottom:162px"></span>
+              <div class="tree t1"></div><div class="tree t2"></div><div class="tree t3"></div><div class="tree t4"></div>
+              <div class="pigeon">🕊️</div>
+              <div class="bee">🐝</div>
+              <div class="hedgehog">🦔</div>
+              <div class="duck">🦆</div>
+              <div class="water"></div>
+              <div class="road"><div class="lane"></div></div>
+              <div class="car"></div>
+            </div>
+            <div class="legend">
+              <span>🕊️ Bestandsmanagement</span>
+              <span>🐝 Habitatmanagement</span>
+              <span>🦔 Schutz vor Technik</span>
+              <span>🦆 Gewässermanagement</span>
+            </div>
+          </div>
+          <div class="card">
+            <span class="tag">Leitidee</span>
+            <h2>Management statt Zufall</h2>
+            <p>Der Mensch entscheidet in der Stadt über Flächennutzung, Pflege, Wasserführung, Schutzmaßnahmen und sogar über die Fortpflanzung einzelner Arten. Deshalb ist das Stadtökosystem ein besonders gutes Beispiel dafür, wie stark Ökosysteme durch Management gesteuert werden.</p>
+            <div class="legend">
+              <span>direkt: Bestände regulieren</span>
+              <span>indirekt: Lebensräume verändern</span>
+              <span>präventiv: Gefahren vermeiden</span>
+              <span>renaturierend: Prozesse zurückholen</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="management">
+      <div class="container">
+        <div class="section-head">
+          <h2>Managementformen</h2>
+          <p>Klicke auf eine Managementform. So wird sichtbar, was der Mensch genau steuert und warum das im Stadtökosystem notwendig ist.</p>
+        </div>
+        <div class="pill-row" role="tablist" aria-label="Managementformen">
+          <button class="pill active" data-topic="regulieren">Bestände regulieren</button>
+          <button class="pill" data-topic="lebensraum">Lebensräume gestalten</button>
+          <button class="pill" data-topic="schutz">Gefahren verringern</button>
+          <button class="pill" data-topic="renaturierung">Prozesse wiederherstellen</button>
+        </div>
+        <div class="panel-box" id="managementPanel"></div>
+      </div>
+    </section>
+
+    <section class="section" id="wirkungen">
+      <div class="container">
+        <div class="section-head">
+          <h2>Positive und negative Seiten</h2>
+          <p>Menschliches Eingreifen ist nicht automatisch gut oder schlecht. Entscheidend ist, wie gezielt, langfristig und ökologisch sinnvoll gemanagt wird.</p>
+        </div>
+        <div class="grid-2">
+          <article class="card impact negative">
+            <span class="tag">Negativ</span>
+            <h3>Wenn Management fehlt oder falsch ist</h3>
+            <ul>
+              <li>Versiegelung zerstört Bodenfunktionen und verschlechtert den Wasserhaushalt.</li>
+              <li>Zu intensive Pflege nimmt Insekten, Vögeln und Kleintieren Nahrung und Rückzugsräume.</li>
+              <li>Verkehr, Licht und Glas erhöhen Störungen und direkte Gefahren für Tiere.</li>
+              <li>Ungeplante Stadtentwicklung zerschneidet Lebensräume und senkt Biodiversität.</li>
+            </ul>
+          </article>
+          <article class="card impact positive">
+            <span class="tag">Positiv</span>
+            <h3>Wenn Management gezielt erfolgt</h3>
+            <ul>
+              <li>Grünflächen, Dächer und Bäume kühlen die Stadt und schaffen Lebensräume.</li>
+              <li>Brutstätten, Nektarpflanzen und offene Bodenstellen fördern verschiedene Arten gezielt.</li>
+              <li>Schwammstadt-Maßnahmen mindern Starkregenfolgen und helfen gegen Trockenheit.</li>
+              <li>Konflikte zwischen Menschen und Tieren können tierschutzgerechter gelöst werden.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="beispiele">
+      <div class="container">
+        <div class="section-head">
+          <h2>Konkrete Tierbeispiele</h2>
+          <p>Diese Beispiele zeigen, dass Management je nach Art ganz unterschiedlich aussehen kann: einmal direkt an der Fortpflanzung, einmal am Lebensraum und einmal am menschlichen Verhalten.</p>
+        </div>
+        <div class="grid-4">
+          <article class="compare-card">
+            <span class="tag">🕊️ Stadttaube</span>
+            <h3>Eiertausch</h3>
+            <p>In betreuten Taubenschlägen werden Eier gegen Attrappen ausgetauscht. Die Tiere werden versorgt, brüten weiter, aber die Population wächst langsamer.</p>
+          </article>
+          <article class="compare-card">
+            <span class="tag">🐝 Wildbiene</span>
+            <h3>Nahrung und Nistplätze</h3>
+            <p>Der Mensch pflanzt Nektarpflanzen, schafft offene Bodenstellen und legt Brutstätten an. So wird der Lebensraum aktiv verbessert.</p>
+          </article>
+          <article class="compare-card">
+            <span class="tag">🦔 Igel</span>
+            <h3>Schutz vor Mährobotern</h3>
+            <p>Mähroboter sollen nachts nicht fahren. Zusätzlich helfen Hecken, Laubhaufen und Durchgänge, damit Igel sichere Wege und Verstecke haben.</p>
+          </article>
+          <article class="compare-card">
+            <span class="tag">🦆 Wasservögel</span>
+            <h3>Renaturierte Ufer</h3>
+            <p>Naturnähere Ufer, strukturreiche Gewässer und weniger Störung an Brutplätzen verbessern die Bedingungen für Tiere und Pflanzen.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="quiz">
+      <div class="container quiz-box">
+        <div class="section-head">
+          <h2>Interaktives Quiz</h2>
+          <p>Teste, ob du die Grundidee verstanden hast: Was bedeutet aktives Management im Stadtökosystem wirklich?</p>
+        </div>
+        <div id="quizContainer"></div>
+        <div class="score" id="quizScore">Punktestand: 0 / 3</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">Interaktive Website zum Stadtökosystem mit Fokus auf aktives Management durch den Menschen.</div>
+  </footer>
+
+  <script>
+    const managementData = {
+      regulieren: {
+        title: 'Bestände regulieren',
+        text: 'Hier greift der Mensch direkt in die Populationsentwicklung ein. Das passiert vor allem dann, wenn Arten in der Stadt sehr häufig werden und Konflikte auslösen, der Umgang aber trotzdem tierschutzgerecht bleiben soll.',
+        bullets: ['Bei Stadttauben werden in betreuten Taubenschlägen Eier gegen Attrappen ausgetauscht.', 'Dadurch wird die Fortpflanzung kontrolliert, ohne adulte Tiere zu töten.', 'Bestandsmanagement verbindet Kontrolle, Versorgung und Konfliktlösung.']
+      },
+      lebensraum: {
+        title: 'Lebensräume gestalten',
+        text: 'Hier managt der Mensch nicht das Tier selbst, sondern seine Umwelt. Das ist oft besonders wirksam, weil dadurch viele Arten gleichzeitig profitieren können.',
+        bullets: ['Heimische Nektarpflanzen fördern Bestäuber wie Wildbienen.', 'Offene Bodenstellen, Brutstätten und Vogelnährgehölze schaffen zusätzliche Strukturen.', 'Naturnahe Pflege ersetzt monotone, artenarme Flächen durch funktionierende Lebensräume.']
+      },
+      schutz: {
+        title: 'Gefahren verringern',
+        text: 'Viele Probleme entstehen nicht durch fehlenden Lebensraum allein, sondern durch moderne Technik und menschliches Verhalten. Deshalb setzt Management auch dort an.',
+        bullets: ['Mähroboter sollen zum Schutz von Igeln nachts nicht fahren.', 'Störungen an Brutplätzen können durch Regeln und Rücksicht reduziert werden.', 'Management heißt hier: Risiken vorher erkennen und verhindern.']
+      },
+      renaturierung: {
+        title: 'Prozesse wiederherstellen',
+        text: 'Manchmal geht es nicht um eine einzelne Art, sondern um das gesamte System. Dann versucht der Mensch, ökologische Prozesse zurückzubringen, die vorher gestört oder zerstört wurden.',
+        bullets: ['Naturnähere Uferzonen schaffen neue Lebensräume für Wasservögel, Insekten und Pflanzen.', 'Schwammstadt-Maßnahmen halten Wasser länger in der Stadt.', 'Der Mensch steuert hier Wasserhaushalt, Vegetation und Habitatvielfalt zugleich.']
+      }
+    };
+    const panel = document.getElementById('managementPanel');
+    const pills = document.querySelectorAll('.pill');
+    function renderManagement(key){
+      const m = managementData[key];
+      panel.innerHTML = `<h3>${m.title}</h3><p>${m.text}</p><ul>${m.bullets.map(b => `<li>${b}</li>`).join('')}</ul>`;
+      pills.forEach(btn => btn.classList.toggle('active', btn.dataset.topic === key));
+    }
+    pills.forEach(btn => btn.addEventListener('click', () => renderManagement(btn.dataset.topic)));
+    renderManagement('regulieren');
+
+    const quizData = [
+      {
+        q: 'Welche Maßnahme ist ein direktes Bestandsmanagement?',
+        options: ['Nektarpflanzen für Wildbienen pflanzen', 'Taubeneier gegen Attrappen austauschen', 'Mehr Bäume in Parks pflanzen'],
+        answer: 1,
+        explanation: 'Der Eiertausch bei Stadttauben ist ein direkter Eingriff in die Fortpflanzung und damit ein klares Beispiel für Bestandsmanagement.'
+      },
+      {
+        q: 'Warum ist das Abschalten nächtlicher Mähroboter ein Managementbeispiel?',
+        options: ['Weil dadurch Regen besser versickert', 'Weil menschliches Verhalten angepasst wird, um Tiere zu schützen', 'Weil dadurch mehr Tauben brüten'],
+        answer: 1,
+        explanation: 'Hier wird nicht der Bestand direkt gesteuert, sondern eine technische Gefahr reduziert. Das ist präventives Management.'
+      },
+      {
+        q: 'Was ist das Ziel von Renaturierung im Stadtökosystem?',
+        options: ['Nur einzelne Tiere umsiedeln', 'Ökologische Prozesse und Lebensräume wiederherstellen', 'Straßen verbreitern'],
+        answer: 1,
+        explanation: 'Renaturierung stellt Funktionen wie Wasserrückhalt, Uferstrukturen und Ersatzlebensräume wieder her.'
+      }
+    ];
+    const quizContainer = document.getElementById('quizContainer');
+    const quizScore = document.getElementById('quizScore');
+    let score = 0;
+    let answered = 0;
+    quizData.forEach((item, idx) => {
+      const box = document.createElement('div');
+      box.className = 'card';
+      box.style.marginBottom = '1rem';
+      box.innerHTML = `<span class="tag">Frage ${idx + 1}</span><h3>${item.q}</h3><div class="quiz-options"></div><div class="quiz-feedback"></div>`;
+      const optionsWrap = box.querySelector('.quiz-options');
+      const feedback = box.querySelector('.quiz-feedback');
+      item.options.forEach((opt, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'quiz-option';
+        btn.textContent = opt;
+        btn.addEventListener('click', () => {
+          if (box.dataset.done) return;
+          box.dataset.done = 'true';
+          answered++;
+          const correct = i === item.answer;
+          if (correct) { score++; btn.classList.add('correct'); }
+          else { btn.classList.add('wrong'); optionsWrap.children[item.answer].classList.add('correct'); }
+          feedback.style.display = 'block';
+          feedback.innerHTML = `<strong>${correct ? 'Richtig' : 'Nicht ganz'}</strong><p>${item.explanation}</p>`;
+          quizScore.textContent = `Punktestand: ${score} / ${quizData.length}`;
+        });
+        optionsWrap.appendChild(btn);
+      });
+      quizContainer.appendChild(box);
+    });
+
+    const motionToggle = document.getElementById('motionToggle');
+    let paused = false;
+    motionToggle.addEventListener('click', () => {
+      paused = !paused;
+      document.body.classList.toggle('paused', paused);
+      motionToggle.textContent = paused ? 'Animationen fortsetzen' : 'Animationen pausieren';
+      motionToggle.setAttribute('aria-pressed', paused ? 'true' : 'false');
+    });
+  </script>
+</body>
+</html>
